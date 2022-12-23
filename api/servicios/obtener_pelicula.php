@@ -16,6 +16,7 @@ if (defined('TOKEN_WEBSERVICE')) {
 		$objConsultaSQL->addCampoSelect('peliculas.titulo', 'titulo');
 		$objConsultaSQL->addCampoSelect('peliculas.pais', 'pais');
 		$objConsultaSQL->addCampoSelect('peliculas.anio', 'anio');
+		$objConsultaSQL->addCampoSelect('peliculas.genero', 'genero');
 		$objConsultaSQL->addCampoSelect('peliculas.sinopsis', 'sinopsis');
 		$objConsultaSQL->addCampoSelect('directores.id', 'iddirector');
 		$objConsultaSQL->addCampoSelect('directores.nombre', 'nombredirector');
@@ -72,6 +73,7 @@ if (defined('TOKEN_WEBSERVICE')) {
 					"anio" => $fila["anio"],
 					"pais" => $fila["pais"],
 					"sinopsis" => $fila["sinopsis"],
+					"genero" => $fila["genero"],
 					"iddirector" => $fila["iddirector"],
 					"director" => $fila["nombredirector"] . " " . $fila["apellidosdirector"],
 					"actores" => [
