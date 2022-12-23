@@ -81,7 +81,9 @@ if (defined('TOKEN_WEBSERVICE')) {
 								"id" => $fila["id"],
 								"titulo" => $fila["titulo"],
 								"anio" => $fila["anio"],
+								"pais" => $fila["pais"],
 								"sinopsis" => $fila["sinopsis"],
+								"iddirector" => $fila["iddirector"],
 								"director" => $fila["nombredirector"] . " " . $fila["apellidosdirector"],
 								"actores" => [
 									$fila['idactor'] => [
