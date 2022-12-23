@@ -36,8 +36,9 @@ img {
 
 table {
     text-align: center;
-    margin: 1rem auto;
+    margin: 1rem 0;
     max-width: 1080px;
+    width: 100%;
     border-collapse: collapse;
 }
 
@@ -102,6 +103,7 @@ table a:hover {
     margin: 0 auto;
     width: 100%;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .ficha-pelicula .ficha-tecnica > div > div:first-child {
@@ -109,10 +111,13 @@ table a:hover {
 }
 
 .ficha-pelicula .ficha-tecnica > div {
-    min-width: 25%;
-    box-shadow: 0.1rem 0.1rem 0.15rem rgb(45, 69, 77);
+    margin-top: 0.5rem;
+    box-shadow: 0.05rem 0.05rem 0.15rem rgb(45, 69, 77);
     padding: 0.5rem 1rem;
+    flex-grow: 1;
+    margin: 0 0.2rem;
 }
+
 
 .ficha-pelicula a {
     color: rgb(78, 117, 142);
@@ -133,4 +138,36 @@ table a:hover {
 .ficha-pelicula .actor:hover {
     background: whitesmoke;
     text-decoration: none;
+}
+
+.wrapper {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1080px;
+}
+
+.wrapper form {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+}
+.wrapper label {
+    margin-top: 0.5rem;
+}
+
+.imagen-director,
+.imagen-actor {
+    width: 300px;
+    height: 420px;
+    background: rgb(127, 171, 198);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+}
+
+input[type="submit"] {
+    margin: 1rem 0 0.5rem 0;
 }

@@ -60,6 +60,10 @@ include_once('./layout/header.php');
                     <div>Año</div>
                     <div><?php echo $pelicula["anio"] ?></div>
                 </div>
+                <div>
+                    <div>Pais</div>
+                    <div><?php echo $pelicula["pais"] ?></div>
+                </div>
             </section>
 
             

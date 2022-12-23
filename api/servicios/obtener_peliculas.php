@@ -27,9 +27,48 @@ if (defined('TOKEN_WEBSERVICE')) {
 		$objConsultaSQL->addTablaLeftJoin('actores_peliculas', 'actores_peliculas.idpelicula = peliculas.id');
 		$objConsultaSQL->addTablaLeftJoin('actores', 'actores.id = actores_peliculas.idactor');
 
+
+		// Filtros
+		if (isset($parametrosRecibidos['anio-inicio'])) {
+			$anio = $parametrosRecibidos['anio-inicio'];
+			$objConsultaSQL->addCondicionWhere('anio', ">= $anio", "AND");
+		}
+
+		if (isset($parametrosRecibidos['anio-fin'])) {
+			$anio = $parametrosRecibidos['anio-fin'];
+			$objConsultaSQL->addCondicionWhere('anio', "<= $anio", "AND");
+		}
+
+		if (isset($parametrosRecibidos['titulo'])){
+			if (strlen($parametrosRecibidos['titulo']) > 0) {
+				$objConsultaSQL->addCondicionWhere('titulo', "LIKE '%$parametrosRecibidos[titulo]%'", "AND");
+			}
+		}
+
+		if (isset($parametrosRecibidos['director'])){
+			if (strlen($parametrosRecibidos['director']) > 0) {
+				$objConsultaSQL->addCondicionWhere('CONCAT(directores.nombre, " ", directores.apellidos) ', "LIKE '%$parametrosRecibidos[director]%'", "AND");
+			}
+		}
+
+		if (isset($parametrosRecibidos['genero'])){
+			if (strlen($parametrosRecibidos['genero']) > 0) {
+				$objConsultaSQL->addCondicionWhere('genero', "LIKE '%$parametrosRecibidos[titulo]%'", "AND");
+			}
+		}
+
+		if (isset($parametrosRecibidos['actor'])){
+			if (strlen($parametrosRecibidos['actor']) > 0) {
+				$objConsultaSQL->addCondicionWhere('CONCAT(actores.nombre, " ", actores.apellidos)', "LIKE '%$parametrosRecibidos[actor]%'", "AND");
+			}
+		}
+
+
+
+
 		//DEBUG. SOLO DESCOMENTAR SI QUERÉIS VER LA CONSULTA QUE SE EJECUTA
 		//AL DESCOMENTAR, NO EJECUTARÁ LA CONSULTA, SOLO LA MOSTRARÁ
-		//echo $objConsultaSQL->obtenerConsultaSQL(); die();
+		// echo $objConsultaSQL->obtenerConsultaSQL(); die();
 
 		//EJECUTAMOS LA CONSULTA
 		$resultado = $objBD->ejecutarConsulta($objConsultaSQL->obtenerConsultaSQL());

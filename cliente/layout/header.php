@@ -11,8 +11,6 @@
     <header>
         <h1>Infopelículas</h1>
         <nav>
-            <a href="/peliculas/cliente">Películas</a>
-            <a href="/peliculas/cliente/actores.php">Actores</a>
-            <a href="/peliculas/cliente/directores.php">Directores</a>
+            <a href="/peliculas/cliente">Inicio</a>
         </nav>
     </header>
