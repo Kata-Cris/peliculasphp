@@ -27,6 +27,7 @@ if (defined('TOKEN_WEBSERVICE')) {
 		$objConsultaSQL->addTablaLeftJoin('directores', 'directores.id = peliculas.director');
 		$objConsultaSQL->addTablaLeftJoin('actores_peliculas', 'actores_peliculas.idpelicula = peliculas.id');
 		$objConsultaSQL->addTablaLeftJoin('actores', 'actores.id = actores_peliculas.idactor');
+		$objConsultaSQL->addCondicionWhere('peliculas.id', "= $parametrosRecibidos[idpelicula]");
 
 		//DEBUG. SOLO DESCOMENTAR SI QUERÉIS VER LA CONSULTA QUE SE EJECUTA
 		//AL DESCOMENTAR, NO EJECUTARÁ LA CONSULTA, SOLO LA MOSTRARÁ
@@ -62,39 +63,33 @@ if (defined('TOKEN_WEBSERVICE')) {
 				$response['code'] = 1;
 				$response['status'] = $api_response_code[$response['code']]['HTTP Response'];
 				$response['message'] = $api_response_code[$response['code']]['Message'];
+				$response['numero_filas'] = 1;
 
-
-				$datos = [];
-
-				while ($fila = mysqli_fetch_assoc($resultado)) {
-					$id = $fila["id"];
-
-					if (key_exists($id, $datos)) {
-						$datos[$id]['actores'][$fila['idactor']] = [
+				$fila = mysqli_fetch_assoc($resultado);
+				$datos = array(
+					"id" => $fila["id"],
+					"titulo" => $fila["titulo"],
+					"anio" => $fila["anio"],
+					"pais" => $fila["pais"],
+					"sinopsis" => $fila["sinopsis"],
+					"iddirector" => $fila["iddirector"],
+					"director" => $fila["nombredirector"] . " " . $fila["apellidosdirector"],
+					"actores" => [
+						$fila['idactor'] => [
 							"nombre" => $fila['nombreactor'],
 							"apellidos" => $fila['apellidosactor']
-						];
-					} else {
-						$datos[$id] =
-							array(
-								"id" => $fila["id"],
-								"titulo" => $fila["titulo"],
-								"anio" => $fila["anio"],
-								"pais" => $fila["pais"],
-								"sinopsis" => $fila["sinopsis"],
-								"iddirector" => $fila["iddirector"],
-								"director" => $fila["nombredirector"] . " " . $fila["apellidosdirector"],
-								"actores" => [
-									$fila['idactor'] => [
-										"nombre" => $fila['nombreactor'],
-										"apellidos" => $fila['apellidosactor']
-									]
-								],
-							);
-					}
+						]
+					],
+				);
+				
+				// resto de filas serán repetidas pero con actor distinto
+				while ($fila = mysqli_fetch_assoc($resultado)) {
+					$datos['actores'][$fila['idactor']] = [
+						"nombre" => $fila['nombreactor'],
+						"apellidos" => $fila['apellidosactor']
+					];
 				}
 
-				$response['numero_filas'] = count($datos);
 				$response['data'] = array(
 					'resultado' => 'ok',
 					'datos' => $datos

@@ -7,6 +7,9 @@
             include_once('servicios/obtener_peliculas.php');
             break;
 
+        case 'obtener_pelicula':
+            include_once('servicios/obtener_pelicula.php');
+            break;
         default:
             $response['code'] = 5;
             $response['status'] = $api_response_code[ $response['code'] ]['HTTP Response'];
