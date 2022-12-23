@@ -53,7 +53,7 @@ if (defined('TOKEN_WEBSERVICE')) {
 
 		if (isset($parametrosRecibidos['genero'])){
 			if (strlen($parametrosRecibidos['genero']) > 0) {
-				$objConsultaSQL->addCondicionWhere('genero', "LIKE '%$parametrosRecibidos[titulo]%'", "AND");
+				$objConsultaSQL->addCondicionWhere('genero', "LIKE '%$parametrosRecibidos[genero]%'", "AND");
 			}
 		}
 
